@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeserver-deployment
+  labels:
+    app: nodeserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeserver
+  template:
+    metadata:
+      labels:
+        app: nodeserver
+    spec:
+      containers:
+        - name: nodeserver
+          image: npmserver:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: npm
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: 40m
+              memory: 100Mi
